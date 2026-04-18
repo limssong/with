@@ -1,0 +1,123 @@
+@use '../../../../styles/variables' as *;
+
+.chatPage {
+  display: flex;
+  flex-direction: column;
+  height: calc(100dvh - $header-height);
+  padding-top: $header-height;
+}
+
+.messageList {
+  flex: 1;
+  overflow-y: auto;
+  padding: $space-4 $space-5;
+  display: flex;
+  flex-direction: column;
+  gap: $space-3;
+}
+
+.empty {
+  text-align: center;
+  color: $text-tertiary;
+  font-size: $font-size-caption;
+  padding: $space-10 0;
+}
+
+.message {
+  display: flex;
+  flex-direction: column;
+  max-width: 75%;
+}
+
+.mine {
+  align-self: flex-end;
+  align-items: flex-end;
+}
+
+.others {
+  align-self: flex-start;
+  align-items: flex-start;
+}
+
+.senderName {
+  font-size: $font-size-small;
+  color: $text-tertiary;
+  margin-bottom: 2px;
+  padding-left: $space-3;
+}
+
+.bubble {
+  padding: $space-3 $space-4;
+  border-radius: $radius-lg;
+  font-size: $font-size-caption;
+  line-height: 1.5;
+  position: relative;
+
+  .mine & {
+    background: $accent;
+    color: $text-on-accent;
+    border-bottom-right-radius: $radius-sm;
+  }
+
+  .others & {
+    background: $bg-surface;
+    border-bottom-left-radius: $radius-sm;
+  }
+}
+
+.time {
+  font-size: $font-size-micro;
+  opacity: 0.6;
+  margin-top: 2px;
+  display: block;
+  text-align: right;
+}
+
+.inputBar {
+  display: flex;
+  align-items: center;
+  gap: $space-3;
+  padding: $space-3 $space-5;
+  background: $bg-surface;
+  border-top: 1px solid $border-separator;
+}
+
+.chatInput {
+  flex: 1;
+  padding: $space-3 $space-4;
+  background: $bg-elevated;
+  border: 1px solid transparent;
+  border-radius: $radius-pill;
+  color: $text-primary;
+  font-size: $font-size-caption;
+  outline: none;
+
+  &:focus {
+    border-color: $accent;
+  }
+
+  &::placeholder {
+    color: $text-tertiary;
+  }
+
+  &:disabled {
+    opacity: 0.5;
+  }
+}
+
+.sendBtn {
+  width: 40px;
+  height: 40px;
+  border-radius: $radius-circle;
+  background: $accent;
+  color: $text-on-accent;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  transition: opacity 0.2s;
+
+  &:disabled {
+    opacity: 0.3;
+  }
+}

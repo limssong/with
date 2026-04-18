@@ -1,0 +1,120 @@
+@use '../../styles/variables' as *;
+
+.card {
+  display: flex;
+  gap: $space-4;
+  padding: $space-4;
+  background: $bg-surface;
+  border-radius: $radius-md;
+  transition: background 0.2s;
+  -webkit-tap-highlight-color: transparent;
+
+  &:hover {
+    background: $bg-elevated;
+  }
+
+  &:active {
+    transform: scale(0.99);
+  }
+}
+
+.dateBox {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-width: 56px;
+  padding: $space-3;
+  background: $bg-elevated;
+  border-radius: $radius-md;
+  gap: 1px;
+}
+
+.month {
+  font-size: $font-size-micro;
+  color: $text-tertiary;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.day {
+  font-size: $font-size-title;
+  font-weight: $font-weight-bold;
+  color: $accent;
+  line-height: 1.2;
+}
+
+.weekday {
+  font-size: $font-size-small;
+  color: $text-secondary;
+}
+
+.content {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  min-width: 0;
+}
+
+.header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: $space-3;
+}
+
+.title {
+  font-size: $font-size-caption;
+  font-weight: $font-weight-bold;
+  line-height: 1.3;
+  flex: 1;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.status {
+  font-size: $font-size-small;
+  font-weight: $font-weight-bold;
+  color: $accent;
+  white-space: nowrap;
+}
+
+.statusFull {
+  color: $color-error;
+}
+
+.meta {
+  font-size: $font-size-small;
+  color: $text-secondary;
+}
+
+.location {
+  font-size: $font-size-small;
+  color: $text-tertiary;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: 4px;
+}
+
+.members {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  font-size: $font-size-small;
+  color: $text-secondary;
+}
+
+.tags {
+  display: flex;
+  gap: 4px;
+}

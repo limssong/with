@@ -1,0 +1,60 @@
+@use '../../styles/variables' as *;
+
+.topBar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: $space-5;
+}
+
+.pageTitle {
+  font-size: $font-size-title;
+  font-weight: $font-weight-bold;
+}
+
+.filters {
+  display: flex;
+  gap: $space-3;
+  overflow-x: auto;
+  padding-bottom: $space-4;
+  margin-bottom: $space-4;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: none;
+
+  &::-webkit-scrollbar {
+    display: none;
+  }
+}
+
+.filterPill {
+  padding: 6px 14px;
+  border-radius: $radius-pill;
+  background: $bg-elevated;
+  color: $text-secondary;
+  font-size: $font-size-small;
+  font-weight: $font-weight-medium;
+  white-space: nowrap;
+  transition: all 0.2s;
+
+  &:hover {
+    background: $bg-card;
+  }
+
+  &.active {
+    background: $accent;
+    color: $text-on-accent;
+  }
+}
+
+.list {
+  display: flex;
+  flex-direction: column;
+  gap: $space-3;
+}
+
+.empty {
+  text-align: center;
+  color: $text-tertiary;
+  font-size: $font-size-caption;
+  padding: $space-8 0;
+}

@@ -1,0 +1,93 @@
+@use '../../../styles/variables' as *;
+
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: $space-5;
+  padding-bottom: $space-8;
+}
+
+.field {
+  display: flex;
+  flex-direction: column;
+  gap: $space-2;
+  flex: 1;
+}
+
+.label {
+  font-size: $font-size-caption;
+  font-weight: $font-weight-bold;
+  color: $text-secondary;
+}
+
+.input, .textarea, .select {
+  width: 100%;
+  padding: $space-4 $space-5;
+  background: $bg-elevated;
+  border-radius: $radius-pill;
+  font-size: $font-size-caption;
+  color: $text-primary;
+  box-shadow: $shadow-inset;
+  transition: box-shadow 0.2s;
+
+  &::placeholder {
+    color: $text-tertiary;
+  }
+
+  &:focus {
+    box-shadow: 0 0 0 1px $accent;
+  }
+}
+
+.textarea {
+  border-radius: $radius-lg;
+  resize: vertical;
+  line-height: 1.5;
+}
+
+.select {
+  appearance: none;
+  cursor: pointer;
+}
+
+.row {
+  display: flex;
+  gap: $space-4;
+}
+
+.checkRow {
+  display: flex;
+  align-items: center;
+  gap: $space-3;
+}
+
+.checkbox {
+  width: 20px;
+  height: 20px;
+  accent-color: $accent;
+  cursor: pointer;
+}
+
+.checkLabel {
+  font-size: $font-size-caption;
+  color: $text-secondary;
+  cursor: pointer;
+}
+
+.selectedLocation {
+  font-size: $font-size-small;
+  color: $accent;
+  margin-top: $space-2;
+}
+
+.errorMsg {
+  font-size: $font-size-small;
+  color: $color-error;
+  padding: $space-3 $space-5;
+  background: rgba($color-error, 0.1);
+  border-radius: $radius-md;
+
+  &[hidden] {
+    display: none;
+  }
+}

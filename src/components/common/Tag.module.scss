@@ -1,0 +1,21 @@
+@use '../../styles/variables' as *;
+
+.tag {
+  display: inline-flex;
+  align-items: center;
+  padding: 4px 10px;
+  border-radius: $radius-pill;
+  font-size: $font-size-small;
+  font-weight: $font-weight-medium;
+  white-space: nowrap;
+}
+
+.default {
+  background: $bg-elevated;
+  color: $text-secondary;
+}
+
+.accent {
+  background: rgba($accent, 0.15);
+  color: $accent;
+}

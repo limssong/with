@@ -1,0 +1,83 @@
+@use '../../styles/variables' as *;
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: $space-3;
+  border-radius: $radius-pill;
+  font-weight: $font-weight-bold;
+  text-transform: uppercase;
+  letter-spacing: 1.4px;
+  transition: all 0.2s;
+  white-space: nowrap;
+  -webkit-tap-highlight-color: transparent;
+
+  &:disabled {
+    opacity: 0.4;
+    cursor: not-allowed;
+  }
+
+  &:active:not(:disabled) {
+    transform: scale(0.97);
+  }
+}
+
+// Variants
+.primary {
+  background: $accent;
+  color: $text-on-accent;
+
+  &:hover:not(:disabled) {
+    background: $accent-dark;
+  }
+}
+
+.secondary {
+  background: $bg-elevated;
+  color: $text-primary;
+
+  &:hover:not(:disabled) {
+    background: $bg-card;
+  }
+}
+
+.outlined {
+  background: transparent;
+  color: $text-primary;
+  border: 1px solid $border-light;
+
+  &:hover:not(:disabled) {
+    border-color: $text-primary;
+  }
+}
+
+.dark {
+  background: $bg-surface;
+  color: $text-primary;
+
+  &:hover:not(:disabled) {
+    background: $bg-elevated;
+  }
+}
+
+// Sizes
+.sm {
+  padding: 6px $space-4;
+  font-size: $font-size-small;
+  letter-spacing: 1px;
+}
+
+.md {
+  padding: $space-3 $space-6;
+  font-size: $font-size-caption;
+}
+
+.lg {
+  padding: $space-4 $space-8;
+  font-size: $font-size-body;
+}
+
+.full {
+  width: 100%;
+}

@@ -1,0 +1,176 @@
+@use '../../../styles/variables' as *;
+
+.mapWrapper {
+  width: 100%;
+  height: 200px;
+  border-radius: $radius-lg;
+  overflow: hidden;
+  margin-bottom: $space-3;
+}
+
+.courseMap {
+  width: 100%;
+  height: 100%;
+}
+
+.elevationWrapper {
+  margin-bottom: $space-5;
+}
+
+.info {
+  margin-bottom: $space-7;
+}
+
+.name {
+  font-size: $font-size-title;
+  font-weight: $font-weight-bold;
+  margin-bottom: 4px;
+}
+
+.region {
+  font-size: $font-size-caption;
+  color: $text-secondary;
+  margin-bottom: $space-4;
+}
+
+.description {
+  font-size: $font-size-caption;
+  color: $text-secondary;
+  line-height: 1.6;
+  margin-bottom: $space-5;
+}
+
+.statsRow {
+  display: flex;
+  gap: $space-3;
+  margin-bottom: $space-5;
+}
+
+.stat {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: $space-4;
+  background: $bg-surface;
+  border-radius: $radius-md;
+}
+
+.statValue {
+  font-size: $font-size-body;
+  font-weight: $font-weight-bold;
+  color: $accent;
+}
+
+.statLabel {
+  font-size: $font-size-small;
+  color: $text-tertiary;
+  margin-top: 2px;
+}
+
+.tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: $space-3;
+}
+
+.section {
+  margin-bottom: $space-7;
+}
+
+.sectionTitle {
+  font-size: $font-size-heading;
+  font-weight: $font-weight-bold;
+  margin-bottom: $space-4;
+}
+
+.list {
+  display: flex;
+  flex-direction: column;
+  gap: $space-3;
+}
+
+// AI Course Preview
+.preview {
+  margin-bottom: $space-7;
+}
+
+.previewHeader {
+  display: flex;
+  align-items: center;
+  gap: $space-3;
+  margin-bottom: $space-2;
+}
+
+.aiBadge {
+  font-size: $font-size-micro;
+  font-weight: $font-weight-bold;
+  padding: 2px 6px;
+  border-radius: 4px;
+  background: $accent;
+  color: $text-on-accent;
+  letter-spacing: 0.5px;
+}
+
+.previewDesc {
+  font-size: $font-size-small;
+  color: $text-tertiary;
+  margin-bottom: $space-4;
+}
+
+.previewGrid {
+  display: flex;
+  flex-direction: column;
+  gap: $space-3;
+}
+
+.previewCard {
+  padding: $space-4;
+  background: $bg-surface;
+  border-radius: $radius-md;
+  border-left: 3px solid rgba($accent, 0.3);
+}
+
+.previewIcon {
+  font-size: $font-size-body;
+  margin-right: $space-2;
+}
+
+.previewLabel {
+  font-size: $font-size-caption;
+  font-weight: $font-weight-bold;
+}
+
+.previewText {
+  font-size: $font-size-small;
+  color: $text-secondary;
+  line-height: 1.6;
+  margin-top: $space-2;
+}
+
+.actions {
+  padding: $space-5 0;
+  display: flex;
+  flex-direction: column;
+  gap: $space-3;
+}
+
+.deleteBtn {
+  width: 100%;
+  padding: $space-4;
+  border-radius: $radius-pill;
+  font-size: $font-size-caption;
+  font-weight: $font-weight-medium;
+  color: $color-error;
+  background: none;
+  border: 1px solid rgba($color-error, 0.3);
+  transition: all 0.2s;
+
+  &:hover {
+    background: rgba($color-error, 0.1);
+  }
+
+  &:disabled {
+    opacity: 0.5;
+  }
+}

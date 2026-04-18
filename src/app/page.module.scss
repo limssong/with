@@ -1,0 +1,188 @@
+@use '../styles/variables' as *;
+
+.hero {
+  padding: $space-8 0 $space-7;
+}
+
+.heroTitle {
+  font-size: $font-size-display;
+  font-weight: $font-weight-bold;
+  line-height: 1.3;
+  letter-spacing: -0.5px;
+}
+
+.accent {
+  color: $accent;
+}
+
+.heroSub {
+  margin-top: $space-3;
+  font-size: $font-size-caption;
+  color: $text-secondary;
+}
+
+.heroActions {
+  display: flex;
+  gap: $space-3;
+  margin-top: $space-6;
+}
+
+.stats {
+  display: flex;
+  gap: $space-3;
+  margin-bottom: $space-7;
+}
+
+.statItem {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: $space-5 $space-3;
+  background: $bg-surface;
+  border-radius: $radius-md;
+}
+
+.statNumber {
+  font-size: $font-size-title;
+  font-weight: $font-weight-bold;
+  color: $accent;
+}
+
+.statLabel {
+  font-size: $font-size-small;
+  color: $text-secondary;
+  margin-top: 2px;
+}
+
+.section {
+  margin-bottom: $space-8;
+}
+
+.sectionHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: $space-4;
+}
+
+.sectionTitle {
+  font-size: $font-size-heading;
+  font-weight: $font-weight-bold;
+}
+
+.seeAll {
+  font-size: $font-size-caption;
+  color: $text-secondary;
+  font-weight: $font-weight-medium;
+
+  &:hover {
+    color: $accent;
+  }
+}
+
+.list {
+  display: flex;
+  flex-direction: column;
+  gap: $space-3;
+}
+
+// AI 섹션
+.sectionTitleGroup {
+  display: flex;
+  align-items: center;
+  gap: $space-3;
+}
+
+.aiBadge {
+  font-size: $font-size-micro;
+  font-weight: $font-weight-bold;
+  padding: 2px 6px;
+  border-radius: $radius-sm;
+  background: $accent;
+  color: $text-on-accent;
+  letter-spacing: 0.5px;
+}
+
+.aiDescription {
+  font-size: $font-size-small;
+  color: $text-tertiary;
+  margin-bottom: $space-4;
+}
+
+.aiCard {
+  display: flex;
+  align-items: stretch;
+  gap: $space-3;
+}
+
+.aiMatchScore {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-width: 48px;
+  padding: $space-3;
+  background: rgba($accent, 0.1);
+  border-radius: $radius-md;
+  border: 1px solid rgba($accent, 0.2);
+}
+
+.aiMatchNumber {
+  font-size: $font-size-heading;
+  font-weight: $font-weight-bold;
+  color: $accent;
+  line-height: 1;
+}
+
+.aiMatchLabel {
+  font-size: $font-size-micro;
+  color: $accent;
+  margin-top: 2px;
+}
+
+.aiCardContent {
+  flex: 1;
+  min-width: 0;
+}
+
+.aiHint {
+  font-size: $font-size-small;
+  color: $text-tertiary;
+  font-style: italic;
+}
+
+.aiFooter {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: $space-4;
+}
+
+.aiDemoLink {
+  font-size: $font-size-small;
+  color: $accent;
+  font-weight: $font-weight-medium;
+  &:hover { text-decoration: underline; }
+}
+
+.aiReasonRow {
+  display: flex;
+  flex-wrap: wrap;
+  gap: $space-2;
+  margin-top: $space-2;
+}
+
+.aiReasonTag {
+  font-size: $font-size-micro;
+  padding: 2px 8px;
+  border-radius: $radius-pill;
+  background: rgba($accent, 0.1);
+  color: $accent;
+  border: 1px solid rgba($accent, 0.2);
+}
+
+.aiCourseWrap {
+  display: flex;
+  flex-direction: column;
+}

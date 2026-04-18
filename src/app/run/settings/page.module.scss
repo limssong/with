@@ -1,0 +1,91 @@
+@use '../../../styles/variables' as *;
+
+.description {
+  font-size: $font-size-caption;
+  color: $text-secondary;
+  line-height: 1.6;
+  margin-bottom: $space-7;
+}
+
+.settingsList {
+  display: flex;
+  flex-direction: column;
+  gap: $space-3;
+}
+
+.settingItem {
+  display: flex;
+  align-items: center;
+  gap: $space-4;
+  padding: $space-5;
+  background: $bg-surface;
+  border-radius: $radius-md;
+}
+
+.settingIcon {
+  color: $accent;
+  flex-shrink: 0;
+  display: flex;
+}
+
+.settingInfo {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.settingLabel {
+  font-size: $font-size-caption;
+  font-weight: $font-weight-bold;
+}
+
+.settingDesc {
+  font-size: $font-size-small;
+  color: $text-tertiary;
+  line-height: 1.4;
+}
+
+// Toggle switch
+.toggle {
+  position: relative;
+  width: 44px;
+  height: 24px;
+  border-radius: $radius-pill;
+  background: $bg-elevated;
+  flex-shrink: 0;
+  transition: background 0.2s;
+
+  &.on {
+    background: $accent;
+
+    .toggleKnob {
+      transform: translateX(20px);
+    }
+  }
+}
+
+.toggleKnob {
+  position: absolute;
+  top: 2px;
+  left: 2px;
+  width: 20px;
+  height: 20px;
+  border-radius: $radius-circle;
+  background: white;
+  transition: transform 0.2s;
+}
+
+.note {
+  margin-top: $space-7;
+  padding: $space-4;
+  background: rgba($accent, 0.06);
+  border-radius: $radius-md;
+  border-left: 3px solid rgba($accent, 0.3);
+
+  p {
+    font-size: $font-size-small;
+    color: $text-tertiary;
+    line-height: 1.6;
+  }
+}

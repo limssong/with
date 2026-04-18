@@ -1,0 +1,66 @@
+@use '../../styles/variables' as *;
+
+.nav {
+  position: fixed;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 100%;
+  max-width: $max-width;
+  height: $bottom-nav-height;
+  background: rgba($bg-surface, 0.95);
+  backdrop-filter: blur(12px);
+  border-top: 1px solid $border-separator;
+  z-index: $z-bottom-nav;
+  padding-bottom: env(safe-area-inset-bottom);
+}
+
+.list {
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.listItem {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+}
+
+.item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 2px;
+  min-width: 44px;
+  min-height: 44px;
+  padding: $space-3 $space-4;
+  color: $text-tertiary;
+  transition: color 0.2s;
+  -webkit-tap-highlight-color: transparent;
+
+  &:active {
+    transform: scale(0.95);
+  }
+}
+
+.active {
+  color: $accent;
+}
+
+.icon {
+  display: flex;
+  width: 24px;
+  height: 24px;
+}
+
+.label {
+  font-size: $font-size-micro;
+  font-weight: $font-weight-medium;
+  letter-spacing: 0.5px;
+}

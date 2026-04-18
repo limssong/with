@@ -1,0 +1,119 @@
+@use '../../../styles/variables' as *;
+
+.loadingText {
+  text-align: center;
+  color: $text-tertiary;
+  padding: $space-10 0;
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: $space-5;
+  padding-bottom: $space-8;
+}
+
+// Avatar
+.avatarSection {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: $space-3;
+  padding: $space-5 0;
+}
+
+.avatarBtn {
+  position: relative;
+  width: 80px;
+  height: 80px;
+  border-radius: $radius-circle;
+  overflow: visible;
+}
+
+.avatarImg {
+  width: 80px;
+  height: 80px;
+  border-radius: $radius-circle;
+  object-fit: cover;
+}
+
+.avatarPlaceholder {
+  width: 80px;
+  height: 80px;
+  border-radius: $radius-circle;
+  background: $bg-elevated;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: $font-size-display;
+  font-weight: $font-weight-bold;
+  color: $accent;
+}
+
+.avatarEdit {
+  position: absolute;
+  bottom: 0;
+  right: -4px;
+  width: 28px;
+  height: 28px;
+  border-radius: $radius-circle;
+  background: $accent;
+  color: $text-on-accent;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 2px solid $bg-base;
+}
+
+.avatarHint {
+  font-size: $font-size-small;
+  color: $text-tertiary;
+}
+
+.field {
+  display: flex;
+  flex-direction: column;
+  gap: $space-2;
+}
+
+.label {
+  font-size: $font-size-caption;
+  font-weight: $font-weight-bold;
+  color: $text-secondary;
+}
+
+.input {
+  padding: $space-4 $space-5;
+  background: $bg-elevated;
+  border: 1px solid $border-default;
+  border-radius: $radius-md;
+  color: $text-primary;
+  font-size: $font-size-body;
+  outline: none;
+  transition: border-color 0.2s;
+
+  &:focus {
+    border-color: $accent;
+  }
+
+  &:focus-visible {
+    outline: 2px solid $accent;
+    outline-offset: 2px;
+  }
+
+  &::placeholder {
+    color: $text-tertiary;
+  }
+}
+
+.errorMsg {
+  font-size: $font-size-small;
+  color: $color-error;
+  padding: $space-3 $space-5;
+  background: rgba($color-error, 0.1);
+  border-radius: $radius-md;
+
+  &[hidden] {
+    display: none;
+  }
+}

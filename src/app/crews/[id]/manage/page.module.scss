@@ -1,0 +1,100 @@
+@use '../../../../styles/variables' as *;
+
+.loadingText { text-align: center; color: $text-tertiary; padding: $space-10 0; }
+
+.crewTitle {
+  font-size: $font-size-heading;
+  font-weight: $font-weight-bold;
+  margin-bottom: $space-7;
+}
+
+.section { margin-bottom: $space-7; }
+
+.sectionTitle {
+  font-size: $font-size-body;
+  font-weight: $font-weight-bold;
+  margin-bottom: $space-4;
+}
+
+.empty {
+  font-size: $font-size-caption;
+  color: $text-tertiary;
+  text-align: center;
+  padding: $space-5 0;
+}
+
+.list {
+  display: flex;
+  flex-direction: column;
+  gap: $space-3;
+}
+
+.memberItem {
+  display: flex;
+  align-items: center;
+  gap: $space-4;
+  padding: $space-4;
+  background: $bg-surface;
+  border-radius: $radius-md;
+}
+
+.memberAvatar {
+  width: 36px;
+  height: 36px;
+  border-radius: $radius-circle;
+  background: $bg-elevated;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: $font-weight-bold;
+  font-size: $font-size-caption;
+  color: $text-secondary;
+  flex-shrink: 0;
+}
+
+.memberName {
+  flex: 1;
+  font-size: $font-size-caption;
+  font-weight: $font-weight-medium;
+}
+
+.actions {
+  display: flex;
+  gap: $space-2;
+}
+
+.acceptBtn {
+  padding: 6px 14px;
+  border-radius: $radius-pill;
+  font-size: $font-size-small;
+  font-weight: $font-weight-bold;
+  background: $accent;
+  color: $text-on-accent;
+}
+
+.rejectBtn {
+  padding: 6px 14px;
+  border-radius: $radius-pill;
+  font-size: $font-size-small;
+  font-weight: $font-weight-medium;
+  background: $bg-elevated;
+  color: $text-secondary;
+}
+
+.statusAccepted {
+  font-size: $font-size-small;
+  font-weight: $font-weight-bold;
+  color: $accent;
+  padding: 4px 10px;
+  border-radius: $radius-pill;
+  background: rgba($accent, 0.15);
+}
+
+.statusRejected {
+  font-size: $font-size-small;
+  font-weight: $font-weight-bold;
+  color: $color-error;
+  padding: 4px 10px;
+  border-radius: $radius-pill;
+  background: rgba($color-error, 0.15);
+}

@@ -1,0 +1,534 @@
+@use '../../styles/variables' as *;
+
+// ── Hero ──────────────────────────────────
+.hero {
+  text-align: center;
+  padding: $space-8 0 $space-7;
+}
+.heroIcon {
+  font-size: 3rem;
+  margin-bottom: $space-4;
+}
+.heroTitle {
+  font-size: $font-size-title;
+  font-weight: $font-weight-bold;
+  margin-bottom: $space-3;
+}
+.heroDesc {
+  font-size: $font-size-caption;
+  color: $text-secondary;
+  line-height: 1.7;
+}
+
+// ── 공통 ──────────────────────────────────
+.sectionLabel {
+  display: flex;
+  align-items: center;
+  gap: $space-3;
+  font-size: $font-size-heading;
+  font-weight: $font-weight-bold;
+  margin-bottom: $space-3;
+}
+.sectionDesc {
+  font-size: $font-size-small;
+  color: $text-tertiary;
+  margin-bottom: $space-5;
+}
+.aiBadge {
+  font-size: $font-size-micro;
+  font-weight: $font-weight-bold;
+  padding: 2px 6px;
+  border-radius: $radius-sm;
+  background: $accent;
+  color: $text-on-accent;
+  letter-spacing: 0.5px;
+}
+.stepBadge {
+  font-size: $font-size-micro;
+  font-weight: $font-weight-bold;
+  padding: 2px 8px;
+  border-radius: $radius-sm;
+  background: $bg-elevated;
+  color: $accent;
+  border: 1px solid rgba($accent, 0.4);
+  letter-spacing: 1px;
+}
+
+// ── 자연어 검색 ──────────────────────────
+.nlSection {
+  margin-bottom: $space-8;
+  padding: $space-6;
+  background: $bg-surface;
+  border-radius: $radius-lg;
+  border: 1px solid $border-separator;
+}
+.nlInputRow {
+  display: flex;
+  gap: $space-3;
+  margin-bottom: $space-3;
+}
+.nlInput {
+  flex: 1;
+  padding: $space-4 $space-5;
+  background: $bg-card;
+  border: 1px solid $border-separator;
+  border-radius: $radius-md;
+  color: $text-primary;
+  font-size: $font-size-caption;
+  outline: none;
+  transition: border-color 0.2s;
+  font-family: $font-family;
+
+  &:focus {
+    border-color: $accent;
+  }
+  &::placeholder {
+    color: $text-tertiary;
+  }
+}
+.nlBtn {
+  padding: $space-4 $space-6;
+  background: $accent;
+  color: $text-on-accent;
+  border: none;
+  border-radius: $radius-md;
+  font-size: $font-size-caption;
+  font-weight: $font-weight-bold;
+  cursor: pointer;
+  white-space: nowrap;
+  transition: opacity 0.2s;
+  font-family: $font-family;
+
+  &:disabled { opacity: 0.5; cursor: not-allowed; }
+}
+.nlProcessing {
+  display: flex;
+  align-items: center;
+  gap: $space-3;
+  font-size: $font-size-small;
+  color: $text-tertiary;
+  padding: $space-3 0;
+}
+.pulse {
+  width: 8px;
+  height: 8px;
+  border-radius: $radius-circle;
+  background: $accent;
+  animation: pulse 1s infinite;
+  flex-shrink: 0;
+}
+@keyframes pulse {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50%       { opacity: 0.4; transform: scale(1.4); }
+}
+.nlResult {
+  margin-top: $space-4;
+  padding: $space-5;
+  background: rgba($accent, 0.06);
+  border-radius: $radius-md;
+  border: 1px solid rgba($accent, 0.2);
+}
+.nlResultTitle {
+  font-size: $font-size-small;
+  color: $text-tertiary;
+  margin-bottom: $space-3;
+}
+.nlTags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: $space-2;
+  margin-bottom: $space-4;
+}
+.nlTag {
+  font-size: $font-size-small;
+  padding: 3px 10px;
+  border-radius: $radius-pill;
+  font-weight: $font-weight-medium;
+}
+.tagPace   { background: rgba(#FCFF74, 0.15); color: #FCFF74; border: 1px solid rgba(#FCFF74, 0.3); }
+.tagDist   { background: rgba(#ffa42b, 0.15); color: #ffa42b; border: 1px solid rgba(#ffa42b, 0.3); }
+.tagTime   { background: rgba(#539df5, 0.15); color: #539df5; border: 1px solid rgba(#539df5, 0.3); }
+.tagRegion { background: rgba(#a78bfa, 0.15); color: #a78bfa; border: 1px solid rgba(#a78bfa, 0.3); }
+
+.applyBtn {
+  width: 100%;
+  padding: $space-4;
+  background: $accent;
+  color: $text-on-accent;
+  border: none;
+  border-radius: $radius-md;
+  font-size: $font-size-caption;
+  font-weight: $font-weight-bold;
+  cursor: pointer;
+  font-family: $font-family;
+  transition: opacity 0.2s;
+  &:hover { opacity: 0.85; }
+}
+
+// ── INPUT 섹션 ────────────────────────────
+.inputSection {
+  margin-bottom: $space-8;
+  padding: $space-6;
+  background: $bg-surface;
+  border-radius: $radius-lg;
+  border: 1px solid $border-separator;
+}
+.condGroup {
+  margin-bottom: $space-5;
+}
+.condLabel {
+  font-size: $font-size-small;
+  color: $text-secondary;
+  margin-bottom: $space-3;
+  font-weight: $font-weight-medium;
+}
+.toggleRow {
+  display: flex;
+  flex-wrap: wrap;
+  gap: $space-2;
+}
+.toggleBtn {
+  padding: 6px 12px;
+  border-radius: $radius-pill;
+  border: 1px solid $border-separator;
+  background: $bg-card;
+  color: $text-secondary;
+  font-size: $font-size-small;
+  cursor: pointer;
+  transition: all 0.15s;
+  font-family: $font-family;
+
+  &.active {
+    background: rgba($accent, 0.15);
+    border-color: $accent;
+    color: $accent;
+    font-weight: $font-weight-medium;
+  }
+  &:hover:not(.active) {
+    border-color: $border-light;
+    color: $text-primary;
+  }
+}
+.matchBtn {
+  width: 100%;
+  margin-top: $space-4;
+  padding: $space-5;
+  background: $accent;
+  color: $text-on-accent;
+  border: none;
+  border-radius: $radius-md;
+  font-size: $font-size-body;
+  font-weight: $font-weight-bold;
+  cursor: pointer;
+  font-family: $font-family;
+  transition: opacity 0.2s;
+
+  &:hover { opacity: 0.85; }
+  &:disabled { opacity: 0.5; cursor: not-allowed; }
+}
+
+// ── PROCESS 섹션 ──────────────────────────
+.processSection {
+  margin-bottom: $space-8;
+  padding: $space-6;
+  background: $bg-surface;
+  border-radius: $radius-lg;
+  border: 1px solid $border-separator;
+}
+.processList {
+  display: flex;
+  flex-direction: column;
+  gap: $space-3;
+  margin-bottom: $space-5;
+}
+.processItem {
+  display: flex;
+  align-items: center;
+  gap: $space-4;
+  padding: $space-4 $space-5;
+  border-radius: $radius-md;
+  background: $bg-card;
+  border: 1px solid $border-separator;
+  opacity: 0.4;
+  transition: all 0.3s;
+
+  &.processDone {
+    opacity: 1;
+    border-color: rgba($accent, 0.3);
+    background: rgba($accent, 0.05);
+  }
+  &.processCurrent {
+    opacity: 1;
+    border-color: rgba($accent, 0.6);
+    background: rgba($accent, 0.08);
+  }
+}
+.processIcon {
+  width: 28px;
+  height: 28px;
+  border-radius: $radius-circle;
+  background: $bg-elevated;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: $font-size-small;
+  font-weight: $font-weight-bold;
+  color: $accent;
+  flex-shrink: 0;
+
+  .processDone & {
+    background: rgba($accent, 0.2);
+    color: $accent;
+  }
+}
+.spinner {
+  display: inline-block;
+  width: 12px;
+  height: 12px;
+  border: 2px solid rgba($accent, 0.3);
+  border-top-color: $accent;
+  border-radius: $radius-circle;
+  animation: spin 0.6s linear infinite;
+}
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+.processText { flex: 1; }
+.processLabel {
+  font-size: $font-size-caption;
+  font-weight: $font-weight-medium;
+  color: $text-primary;
+}
+.processDesc {
+  font-size: $font-size-small;
+  color: $text-tertiary;
+  margin-top: 2px;
+}
+
+// 가중치 바
+.weightViz {
+  margin-top: $space-4;
+}
+.weightTitle {
+  font-size: $font-size-small;
+  color: $text-tertiary;
+  margin-bottom: $space-3;
+}
+.weightBar {
+  display: flex;
+  border-radius: $radius-md;
+  overflow: hidden;
+  height: 36px;
+}
+.weightSeg {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: $font-size-micro;
+  font-weight: $font-weight-bold;
+  color: $text-on-accent;
+  transition: width 0.6s ease;
+  white-space: nowrap;
+  overflow: hidden;
+  padding: 0 $space-2;
+}
+
+// ── OUTPUT 섹션 ───────────────────────────
+.outputSection {
+  margin-bottom: $space-8;
+  padding: $space-6;
+  background: $bg-surface;
+  border-radius: $radius-lg;
+  border: 1px solid $border-separator;
+}
+.resultList {
+  display: flex;
+  flex-direction: column;
+  gap: $space-3;
+}
+.resultCard {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: $space-5;
+  background: $bg-card;
+  border-radius: $radius-md;
+  border: 1px solid $border-separator;
+  transition: border-color 0.2s;
+
+  &.topCard {
+    border-color: rgba($accent, 0.4);
+    background: rgba($accent, 0.04);
+  }
+}
+.topBadge {
+  position: absolute;
+  top: -10px;
+  left: $space-5;
+  font-size: $font-size-micro;
+  font-weight: $font-weight-bold;
+  padding: 2px 8px;
+  background: $accent;
+  color: $text-on-accent;
+  border-radius: $radius-pill;
+}
+.resultLeft {
+  display: flex;
+  align-items: flex-start;
+  gap: $space-4;
+  flex: 1;
+  min-width: 0;
+}
+.resultAvatar {
+  font-size: 1.8rem;
+  flex-shrink: 0;
+}
+.resultName {
+  font-size: $font-size-caption;
+  font-weight: $font-weight-bold;
+  margin-bottom: 2px;
+}
+.resultBio {
+  font-size: $font-size-small;
+  color: $text-tertiary;
+  margin-bottom: $space-3;
+}
+.reasonTags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: $space-2;
+}
+.reasonTag {
+  font-size: $font-size-micro;
+  padding: 2px 8px;
+  border-radius: $radius-pill;
+  background: rgba($accent, 0.12);
+  color: $accent;
+  border: 1px solid rgba($accent, 0.25);
+}
+.scoreCol {
+  flex-shrink: 0;
+  margin-left: $space-4;
+}
+
+.noResult {
+  text-align: center;
+  padding: $space-9 0;
+  color: $text-tertiary;
+
+  p:first-child {
+    font-size: $font-size-body;
+    margin-bottom: $space-3;
+  }
+  p:last-child {
+    font-size: $font-size-small;
+  }
+}
+
+// ── 모델 방향 ─────────────────────────────
+.modelSection {
+  margin-bottom: $space-8;
+  padding: $space-6;
+  background: $bg-surface;
+  border-radius: $radius-lg;
+  border: 1px solid $border-separator;
+}
+.modelCards {
+  display: flex;
+  flex-direction: column;
+  gap: $space-4;
+  margin-bottom: $space-6;
+}
+.modelCard {
+  padding: $space-5;
+  background: $bg-card;
+  border-radius: $radius-md;
+  border: 1px solid $border-separator;
+}
+.modelPhase {
+  font-size: $font-size-micro;
+  color: $accent;
+  font-weight: $font-weight-bold;
+  letter-spacing: 0.5px;
+  margin-bottom: $space-2;
+  text-transform: uppercase;
+}
+.modelName {
+  font-size: $font-size-caption;
+  font-weight: $font-weight-bold;
+  margin-bottom: $space-2;
+}
+.modelDesc {
+  font-size: $font-size-small;
+  color: $text-tertiary;
+  line-height: 1.6;
+  margin-bottom: $space-3;
+}
+.modelTags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: $space-2;
+
+  span {
+    font-size: $font-size-micro;
+    padding: 2px 8px;
+    border-radius: $radius-pill;
+    background: $bg-elevated;
+    color: $text-secondary;
+    border: 1px solid $border-separator;
+  }
+}
+
+// 데이터 흐름
+.dataFlow {
+  padding: $space-5;
+  background: $bg-card;
+  border-radius: $radius-md;
+  border: 1px solid $border-separator;
+}
+.dataFlowTitle {
+  font-size: $font-size-small;
+  color: $text-tertiary;
+  margin-bottom: $space-4;
+  font-weight: $font-weight-medium;
+}
+.flowRow {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: $space-2;
+}
+.flowBox {
+  flex: 1;
+  min-width: 60px;
+  padding: $space-3 $space-2;
+  background: $bg-elevated;
+  border-radius: $radius-md;
+  border: 1px solid $border-separator;
+  font-size: $font-size-micro;
+  font-weight: $font-weight-bold;
+  text-align: center;
+  line-height: 1.5;
+
+  span {
+    display: block;
+    color: $text-tertiary;
+    font-weight: $font-weight-regular;
+    margin-top: 2px;
+    font-size: 9px;
+  }
+
+  &.flowBoxAccent {
+    border-color: rgba($accent, 0.4);
+    background: rgba($accent, 0.08);
+    color: $accent;
+
+    span { color: rgba($accent, 0.6); }
+  }
+}
+.flowArrow {
+  color: $text-tertiary;
+  font-size: $font-size-small;
+  flex-shrink: 0;
+}

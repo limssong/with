@@ -1,0 +1,83 @@
+@use '../../styles/variables' as *;
+
+.wrapper {
+  position: relative;
+}
+
+.inputRow {
+  display: flex;
+  align-items: center;
+  gap: $space-3;
+  background: $bg-elevated;
+  border: 1px solid $border-default;
+  border-radius: $radius-md;
+  padding: $space-3 $space-4;
+  transition: border-color 0.2s;
+
+  &:focus-within {
+    border-color: $accent;
+  }
+}
+
+.searchIcon {
+  color: $text-tertiary;
+  flex-shrink: 0;
+}
+
+.input {
+  flex: 1;
+  background: none;
+  border: none;
+  color: $text-primary;
+  font-size: $font-size-caption;
+  outline: none;
+
+  &::placeholder {
+    color: $text-tertiary;
+  }
+
+  &:disabled {
+    color: $text-tertiary;
+  }
+}
+
+.results {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  right: 0;
+  margin-top: $space-2;
+  background: $bg-surface;
+  border: 1px solid $border-default;
+  border-radius: $radius-md;
+  overflow: hidden;
+  z-index: $z-modal;
+  box-shadow: $shadow-heavy;
+}
+
+.resultItem {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  padding: $space-3 $space-4;
+  cursor: pointer;
+  transition: background 0.15s;
+
+  &:hover {
+    background: $bg-elevated;
+  }
+
+  & + & {
+    border-top: 1px solid $border-separator;
+  }
+}
+
+.resultName {
+  font-size: $font-size-caption;
+  font-weight: $font-weight-medium;
+}
+
+.resultAddr {
+  font-size: $font-size-small;
+  color: $text-tertiary;
+}

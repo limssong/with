@@ -1,0 +1,272 @@
+@use '../../styles/variables' as *;
+
+.timerSection {
+  text-align: center;
+  padding: $space-8 0 $space-5;
+}
+
+.timer {
+  font-size: 3.5rem;
+  font-weight: $font-weight-bold;
+  font-family: $font-family-mono;
+  letter-spacing: 2px;
+}
+
+.runStats {
+  display: flex;
+  justify-content: center;
+  gap: $space-7;
+  margin-top: $space-5;
+}
+
+.runStat {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.runStatValue {
+  font-size: $font-size-title;
+  font-weight: $font-weight-bold;
+  font-family: $font-family-mono;
+}
+
+.runStatLabel {
+  font-size: $font-size-small;
+  color: $text-tertiary;
+  margin-top: 2px;
+}
+
+// Auto detection
+.autoDetect {
+  margin: $space-5 0;
+  padding: $space-4;
+  background: $bg-surface;
+  border-radius: $radius-md;
+}
+
+.autoDetectHeader {
+  display: flex;
+  align-items: center;
+  gap: $space-3;
+}
+
+.autoDetectIcon {
+  color: $text-secondary;
+  display: flex;
+}
+
+.autoDetectLabel {
+  font-size: $font-size-caption;
+  font-weight: $font-weight-medium;
+  flex: 1;
+}
+
+.statusDot {
+  width: 8px;
+  height: 8px;
+  border-radius: $radius-circle;
+  background: $text-tertiary;
+
+  &.active {
+    background: $accent;
+    box-shadow: 0 0 6px rgba($accent, 0.6);
+    animation: pulse 2s infinite;
+  }
+}
+
+@keyframes pulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.5; }
+}
+
+.autoDetectMsg {
+  font-size: $font-size-small;
+  color: $text-tertiary;
+  margin-top: $space-2;
+  padding-left: 28px;
+}
+
+// Report log
+.reportLog {
+  margin: $space-5 0;
+}
+
+.reportLogTitle {
+  font-size: $font-size-caption;
+  font-weight: $font-weight-bold;
+  margin-bottom: $space-3;
+}
+
+.reportList {
+  display: flex;
+  flex-direction: column;
+  gap: $space-2;
+}
+
+.reportItem {
+  display: flex;
+  align-items: center;
+  gap: $space-3;
+  padding: $space-3 $space-4;
+  background: $bg-surface;
+  border-radius: $radius-md;
+}
+
+.reportTime {
+  font-size: $font-size-small;
+  font-family: $font-family-mono;
+  color: $text-tertiary;
+  min-width: 48px;
+}
+
+.reportTag {
+  font-size: $font-size-caption;
+}
+
+// Controls
+.controls {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: $space-7;
+  padding: $space-7 0;
+}
+
+.startBtn {
+  width: 72px;
+  height: 72px;
+  border-radius: $radius-circle;
+  background: $accent;
+  color: $text-on-accent;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: transform 0.2s;
+
+  &:active {
+    transform: scale(0.95);
+  }
+}
+
+.stopBtn {
+  width: 72px;
+  height: 72px;
+  border-radius: $radius-circle;
+  background: $color-error;
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: transform 0.2s;
+
+  &:active {
+    transform: scale(0.95);
+  }
+}
+
+.controlBtn {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+  color: $text-secondary;
+  font-size: $font-size-small;
+  padding: $space-3;
+  border-radius: $radius-md;
+  transition: all 0.2s;
+
+  &:active {
+    background: $bg-elevated;
+  }
+
+  &.listening {
+    color: $accent;
+  }
+}
+
+// Quick tags
+.quickTags {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: $space-3;
+  padding: $space-4;
+  background: $bg-surface;
+  border-radius: $radius-lg;
+  margin-bottom: $space-5;
+}
+
+.quickTagBtn {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+  padding: $space-4 $space-3;
+  background: $bg-elevated;
+  border-radius: $radius-md;
+  transition: all 0.15s;
+
+  &:active {
+    background: $accent;
+    color: $text-on-accent;
+    transform: scale(0.95);
+  }
+}
+
+.quickTagEmoji {
+  font-size: 1.25rem;
+}
+
+.quickTagLabel {
+  font-size: $font-size-small;
+}
+
+// Voice overlay
+.voiceOverlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba($bg-base, 0.85);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: $space-5;
+  z-index: $z-modal;
+  color: $accent;
+  font-size: $font-size-heading;
+  font-weight: $font-weight-bold;
+}
+
+.voicePulse {
+  width: 80px;
+  height: 80px;
+  border-radius: $radius-circle;
+  background: rgba($accent, 0.2);
+  border: 2px solid $accent;
+  animation: voicePulse 1.5s infinite;
+}
+
+@keyframes voicePulse {
+  0% { transform: scale(1); opacity: 1; }
+  100% { transform: scale(1.5); opacity: 0; }
+}
+
+// Settings link
+.settingsLink {
+  text-align: center;
+  padding: $space-3 0 $space-8;
+
+  a {
+    font-size: $font-size-small;
+    color: $text-tertiary;
+    text-decoration: underline;
+    text-underline-offset: 2px;
+
+    &:hover {
+      color: $accent;
+    }
+  }
+}

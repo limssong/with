@@ -1,0 +1,81 @@
+@use '../../styles/variables' as *;
+
+.loading {
+  text-align: center;
+  color: $text-tertiary;
+  padding: $space-10 0;
+}
+
+.empty {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: $space-10 0;
+  color: $text-tertiary;
+  gap: $space-3;
+
+  p {
+    font-size: $font-size-heading;
+    font-weight: $font-weight-bold;
+    color: $text-secondary;
+  }
+
+  span {
+    font-size: $font-size-small;
+  }
+}
+
+.list {
+  display: flex;
+  flex-direction: column;
+}
+
+.item {
+  display: flex;
+  gap: $space-4;
+  padding: $space-4 $space-5;
+  border-bottom: 1px solid $border-separator;
+  transition: background 0.2s;
+
+  &:hover {
+    background: $bg-surface;
+  }
+}
+
+.unread {
+  background: rgba($accent, 0.04);
+  border-left: 3px solid $accent;
+}
+
+.icon {
+  font-size: 1.25rem;
+  flex-shrink: 0;
+  margin-top: 2px;
+}
+
+.content {
+  flex: 1;
+  min-width: 0;
+}
+
+.title {
+  font-size: $font-size-caption;
+  font-weight: $font-weight-bold;
+  line-height: 1.4;
+}
+
+.message {
+  font-size: $font-size-small;
+  color: $text-secondary;
+  line-height: 1.5;
+  margin-top: 2px;
+}
+
+.time {
+  font-size: $font-size-micro;
+  color: $text-tertiary;
+  margin-top: $space-2;
+  display: block;
+}

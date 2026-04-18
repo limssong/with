@@ -1,0 +1,97 @@
+@use '../../../../styles/variables' as *;
+
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: $space-7;
+  padding-bottom: $space-8;
+}
+
+.ratingSection {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: $space-7 0;
+}
+
+.ratingLabel {
+  font-size: $font-size-heading;
+  font-weight: $font-weight-bold;
+  margin-bottom: $space-5;
+}
+
+.stars {
+  display: flex;
+  gap: $space-2;
+}
+
+.star {
+  color: $text-tertiary;
+  transition: color 0.15s, transform 0.15s;
+  padding: $space-1;
+
+  &:active {
+    transform: scale(1.2);
+  }
+}
+
+.starActive {
+  color: $color-warning;
+}
+
+.ratingText {
+  font-size: $font-size-caption;
+  color: $text-secondary;
+  margin-top: $space-4;
+  font-weight: $font-weight-medium;
+}
+
+.field {
+  display: flex;
+  flex-direction: column;
+  gap: $space-2;
+}
+
+.label {
+  font-size: $font-size-caption;
+  font-weight: $font-weight-bold;
+  color: $text-secondary;
+}
+
+.textarea {
+  padding: $space-4 $space-5;
+  background: $bg-elevated;
+  border: 1px solid $border-default;
+  border-radius: $radius-lg;
+  color: $text-primary;
+  font-size: $font-size-caption;
+  line-height: 1.6;
+  resize: vertical;
+  outline: none;
+  transition: border-color 0.2s;
+
+  &:focus {
+    border-color: $accent;
+  }
+
+  &:focus-visible {
+    outline: 2px solid $accent;
+    outline-offset: 2px;
+  }
+
+  &::placeholder {
+    color: $text-tertiary;
+  }
+}
+
+.errorMsg {
+  font-size: $font-size-small;
+  color: $color-error;
+  padding: $space-3 $space-5;
+  background: rgba($color-error, 0.1);
+  border-radius: $radius-md;
+
+  &[hidden] {
+    display: none;
+  }
+}
