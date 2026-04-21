@@ -1,6 +1,22 @@
 import { supabase } from './supabase';
-import type { Course } from '@/data/courses';
-import type { Crew } from '@/data/crews';
+import { courses as localCourses, type Course } from '@/data/courses';
+import { crews as localCrews, type Crew } from '@/data/crews';
+
+const SUPABASE_TIMEOUT_MS = 2000;
+
+// Supabase 쿼리를 2초 내 끝나지 않으면 즉시 실패 처리
+async function withTimeout<T>(
+  query: PromiseLike<{ data: T | null; error: unknown }>,
+): Promise<{ data: T | null; error: unknown }> {
+  const timeout = new Promise<{ data: null; error: Error }>((resolve) =>
+    setTimeout(() => resolve({ data: null, error: new Error('timeout') }), SUPABASE_TIMEOUT_MS),
+  );
+  try {
+    return await Promise.race([Promise.resolve(query), timeout]);
+  } catch {
+    return { data: null, error: new Error('exception') };
+  }
+}
 
 // DB row 타입
 interface CourseRow {
@@ -88,73 +104,57 @@ function toCrew(row: CrewRow): Crew {
 
 // 코스 목록
 export async function getCourses(): Promise<Course[]> {
-  const { data, error } = await supabase
-    .from('courses')
-    .select('*')
-    .order('created_at', { ascending: false });
-
-  if (error || !data) return [];
+  const { data, error } = await withTimeout<CourseRow[]>(
+    supabase.from('courses').select('*').order('created_at', { ascending: false }),
+  );
+  if (error || !data || data.length === 0) return localCourses;
   return data.map(toCourse);
 }
 
 // 코스 상세
 export async function getCourse(id: string): Promise<Course | null> {
-  const { data, error } = await supabase
-    .from('courses')
-    .select('*')
-    .eq('id', id)
-    .single();
-
-  if (error || !data) return null;
+  const { data, error } = await withTimeout<CourseRow>(
+    supabase.from('courses').select('*').eq('id', id).single(),
+  );
+  if (error || !data) return localCourses.find((c) => c.id === id) || null;
   return toCourse(data);
 }
 
 // 모임 목록
 export async function getCrews(): Promise<Crew[]> {
-  const { data, error } = await supabase
-    .from('crews')
-    .select(`
-      *,
-      course:courses(name),
-      host:profiles(name, avatar_url)
-    `)
-    .order('date', { ascending: true });
-
-  if (error || !data) return [];
-  return data.map((row) => toCrew({
-    ...row,
-    course: row.course,
-    host: row.host,
-  }));
+  const { data, error } = await withTimeout<CrewRow[]>(
+    supabase
+      .from('crews')
+      .select(`*, course:courses(name), host:profiles(name, avatar_url)`)
+      .order('date', { ascending: true }),
+  );
+  if (error || !data || data.length === 0) return localCrews;
+  return data.map((row) => toCrew({ ...row, course: row.course, host: row.host }));
 }
 
 // 모임 상세
 export async function getCrew(id: string): Promise<Crew | null> {
-  const { data, error } = await supabase
-    .from('crews')
-    .select(`
-      *,
-      course:courses(name, coordinates),
-      host:profiles(name, avatar_url)
-    `)
-    .eq('id', id)
-    .single();
-
-  if (error || !data) return null;
+  const { data, error } = await withTimeout<CrewRow>(
+    supabase
+      .from('crews')
+      .select(`*, course:courses(name, coordinates), host:profiles(name, avatar_url)`)
+      .eq('id', id)
+      .single(),
+  );
+  if (error || !data) return localCrews.find((c) => c.id === id) || null;
   return toCrew(data);
 }
 
 // 코스별 모임
 export async function getCrewsByCourse(courseId: string): Promise<Crew[]> {
-  const { data, error } = await supabase
-    .from('crews')
-    .select(`
-      *,
-      course:courses(name),
-      host:profiles(name, avatar_url)
-    `)
-    .eq('course_id', courseId);
-
-  if (error || !data) return [];
+  const { data, error } = await withTimeout<CrewRow[]>(
+    supabase
+      .from('crews')
+      .select(`*, course:courses(name), host:profiles(name, avatar_url)`)
+      .eq('course_id', courseId),
+  );
+  if (error || !data || data.length === 0) {
+    return localCrews.filter((c) => c.courseId === courseId);
+  }
   return data.map((row) => toCrew({ ...row, course: row.course, host: row.host }));
 }

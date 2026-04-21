@@ -52,6 +52,11 @@
   &:hover {
     opacity: 0.9;
   }
+
+  &:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+  }
 }
 
 .googleBtn {
@@ -71,6 +76,23 @@
   &:hover {
     opacity: 0.9;
   }
+
+  &:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+  }
+}
+
+.error {
+  margin-top: $space-4;
+  max-width: 320px;
+  padding: $space-3 $space-4;
+  border-radius: $radius-md;
+  background: rgba(220, 38, 38, 0.08);
+  color: #dc2626;
+  font-size: $font-size-small;
+  text-align: center;
+  word-break: break-word;
 }
 
 .footer {

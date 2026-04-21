@@ -204,9 +204,9 @@ export default function AiDemoPage() {
         <section className={styles.nlSection}>
           <div className={styles.sectionLabel}>
             <span className={styles.aiBadge}>AI</span>
-            자연어 조건 파싱
+            자연어 검색
           </div>
-          <p className={styles.sectionDesc}>말로 설명하면 AI가 조건을 자동으로 뽑아줘요</p>
+          <p className={styles.sectionDesc}>글로 설명하면 AI가 조건을 자동으로 뽑아줘요</p>
           <div className={styles.nlInputRow}>
             <input
               ref={inputRef}

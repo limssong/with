@@ -17,7 +17,7 @@ const COURSE_REASONS = [
   ['선호 거리', '높은 평점'],
 ];
 
-export const dynamic = 'force-dynamic';
+export const revalidate = 60;
 
 const jsonLd = {
   '@context': 'https://schema.org',
