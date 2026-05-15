@@ -381,7 +381,23 @@
   min-width: 0;
 }
 .resultAvatar {
-  font-size: 1.8rem;
+  font-size: 1.4rem;
+  font-weight: $font-weight-bold;
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  background: $bg-surface;
+  color: $text-primary;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+.resultAvatarImg {
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  object-fit: cover;
   flex-shrink: 0;
 }
 .resultName {

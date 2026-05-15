@@ -1,71 +1,28 @@
 'use client';
 
-import { useState, useEffect, useRef } from 'react';
+import { useState, useRef } from 'react';
 import Header from '@/components/common/Header';
 import BottomNav from '@/components/common/BottomNav';
 import styles from './page.module.scss';
 
 // ────────────────────────────────────────────
-// 더미 러너 데이터
+// 조건 옵션 (백엔드와 동일해야 함)
 // ────────────────────────────────────────────
 const PACE_OPTIONS   = ['~5:00', '5:00~5:30', '5:30~6:00', '6:00~6:30', '6:30~7:00', '7:00~'];
 const DIST_OPTIONS   = ['~3km', '3~5km', '5~7km', '7~10km', '10km~'];
 const TIME_OPTIONS   = ['새벽', '아침', '점심', '저녁', '밤'];
 const REGION_OPTIONS = ['마포구', '영등포구', '서초구', '강남구', '송파구', '종로구'];
 
-interface Runner {
-  id: number;
+interface MatchResult {
+  id: string;
   name: string;
-  avatar: string;
-  paceVec: number[];   // 6-dim one-hot
-  distVec: number[];   // 5-dim one-hot (multi-hot)
-  timeVec: number[];   // 5-dim one-hot (multi-hot)
-  regionVec: number[]; // 6-dim one-hot (multi-hot)
-  bio: string;
-}
-
-const RUNNERS: Runner[] = [
-  { id: 1, name: '김민준', avatar: '🏃', bio: '퇴근 후 마포 상암 코스 즐겨요',
-    paceVec: [0,0,1,0,0,0], distVec: [0,0,1,1,0], timeVec: [0,0,0,1,1], regionVec: [1,0,0,0,0,0] },
-  { id: 2, name: '이지수', avatar: '🏃‍♀️', bio: '주말 아침 한강 단골',
-    paceVec: [0,1,1,0,0,0], distVec: [0,1,1,0,0], timeVec: [0,1,0,0,0], regionVec: [1,1,0,0,0,0] },
-  { id: 3, name: '박서연', avatar: '🧑‍🦱', bio: '서초 반포 저녁 러닝 즐겨요',
-    paceVec: [0,0,0,1,0,0], distVec: [0,0,1,0,0], timeVec: [0,0,0,1,0], regionVec: [0,0,1,0,0,0] },
-  { id: 4, name: '최준혁', avatar: '👤', bio: '강남 새벽 러너 5년차',
-    paceVec: [1,1,0,0,0,0], distVec: [0,0,0,1,1], timeVec: [1,0,0,0,0], regionVec: [0,0,0,1,0,0] },
-  { id: 5, name: '정예린', avatar: '🙋‍♀️', bio: '종로 야경 러닝 좋아해요',
-    paceVec: [0,0,0,0,1,0], distVec: [1,1,0,0,0], timeVec: [0,0,0,0,1], regionVec: [0,0,0,0,0,1] },
-  { id: 6, name: '한동훈', avatar: '🧑', bio: '송파 올림픽공원 주변',
-    paceVec: [0,0,1,1,0,0], distVec: [0,0,1,1,0], timeVec: [0,1,0,1,0], regionVec: [0,0,0,0,1,0] },
-];
-
-// 코사인 유사도
-function cosineSim(a: number[], b: number[]): number {
-  const dot = a.reduce((s, v, i) => s + v * b[i], 0);
-  const magA = Math.sqrt(a.reduce((s, v) => s + v * v, 0));
-  const magB = Math.sqrt(b.reduce((s, v) => s + v * v, 0));
-  if (magA === 0 || magB === 0) return 0;
-  return dot / (magA * magB);
-}
-
-// 사용자 조건 → 벡터
-function condToVec(selected: string[], options: string[]): number[] {
-  return options.map((o) => (selected.includes(o) ? 1 : 0));
-}
-
-// 매칭 이유 생성
-function getReasons(userPace: string[], userDist: string[], userTime: string[], userRegion: string[], runner: Runner): string[] {
-  const reasons: string[] = [];
-  const pace   = condToVec(userPace,   PACE_OPTIONS);
-  const dist   = condToVec(userDist,   DIST_OPTIONS);
-  const time   = condToVec(userTime,   TIME_OPTIONS);
-  const region = condToVec(userRegion, REGION_OPTIONS);
-
-  if (pace.some((v, i)   => v && runner.paceVec[i]))   reasons.push('페이스 일치');
-  if (dist.some((v, i)   => v && runner.distVec[i]))   reasons.push('거리 일치');
-  if (time.some((v, i)   => v && runner.timeVec[i]))   reasons.push('시간대 일치');
-  if (region.some((v, i) => v && runner.regionVec[i])) reasons.push('지역 일치');
-  return reasons;
+  avatar_url: string | null;
+  pace: string | null;
+  preferred_distance: string[];
+  preferred_time: string[];
+  preferred_region: string[];
+  score: number;
+  reasons: string[];
 }
 
 // NL 검색 파싱 (더미 로직)
@@ -87,7 +44,7 @@ export default function AiDemoPage() {
   // ── AI 처리 단계 ──
   const [step,    setStep]    = useState<Step>('idle');
   const [stepIdx, setStepIdx] = useState(0); // 0~3
-  const [results, setResults] = useState<{ runner: Runner; score: number; reasons: string[] }[]>([]);
+  const [results, setResults] = useState<MatchResult[]>([]);
 
   // ── 자연어 검색 ──
   const [nlQuery,      setNlQuery]      = useState('');
@@ -118,28 +75,24 @@ export default function AiDemoPage() {
     timer(600,  () => setStepIdx(1));
     timer(1300, () => setStepIdx(2));
     timer(2000, () => setStepIdx(3));
-    timer(2700, () => {
-      const uPace   = condToVec(selPace,   PACE_OPTIONS);
-      const uDist   = condToVec(selDist,   DIST_OPTIONS);
-      const uTime   = condToVec(selTime,   TIME_OPTIONS);
-      const uRegion = condToVec(selRegion, REGION_OPTIONS);
-
-      const scored = RUNNERS.map((r) => {
-        const sim =
-          cosineSim(uPace, r.paceVec)   * 0.35 +
-          cosineSim(uDist, r.distVec)   * 0.25 +
-          cosineSim(uTime, r.timeVec)   * 0.25 +
-          cosineSim(uRegion, r.regionVec) * 0.15;
-        return {
-          runner:  r,
-          score:   Math.round(sim * 100),
-          reasons: getReasons(selPace, selDist, selTime, selRegion, r),
-        };
-      })
-        .filter((x) => x.score > 0)
-        .sort((a, b) => b.score - a.score);
-
-      setResults(scored);
+    timer(2700, async () => {
+      try {
+        const res = await fetch('/api/match', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            pace: selPace,
+            dist: selDist,
+            time: selTime,
+            region: selRegion,
+            currentUserId: null,
+          }),
+        });
+        const data = await res.json();
+        setResults(Array.isArray(data?.results) ? data.results : []);
+      } catch {
+        setResults([]);
+      }
       setStep('done');
     });
   };
@@ -152,8 +105,8 @@ export default function AiDemoPage() {
 
     setTimeout(() => {
       const match =
-        NL_EXAMPLES.find((e) => nlQuery.includes('강남'))   ? NL_EXAMPLES[1] :
-        NL_EXAMPLES.find((e) => nlQuery.includes('마포'))   ? NL_EXAMPLES[2] :
+        nlQuery.includes('강남') ? NL_EXAMPLES[1] :
+        nlQuery.includes('마포') ? NL_EXAMPLES[2] :
         NL_EXAMPLES[0];
       setNlParsed(match);
       setNlProcessing(false);
@@ -377,13 +330,20 @@ export default function AiDemoPage() {
             <p className={styles.sectionDesc}>{results.length}명의 러너를 찾았어요</p>
             <div className={styles.resultList}>
               {results.map((r, rank) => (
-                <div key={r.runner.id} className={`${styles.resultCard} ${rank === 0 ? styles.topCard : ''}`}>
+                <div key={r.id} className={`${styles.resultCard} ${rank === 0 ? styles.topCard : ''}`}>
                   {rank === 0 && <div className={styles.topBadge}>최고 매칭</div>}
                   <div className={styles.resultLeft}>
-                    <span className={styles.resultAvatar}>{r.runner.avatar}</span>
+                    {r.avatar_url ? (
+                      // eslint-disable-next-line @next/next/no-img-element
+                      <img src={r.avatar_url} alt={r.name} className={styles.resultAvatarImg} />
+                    ) : (
+                      <span className={styles.resultAvatar}>{r.name.charAt(0) || '?'}</span>
+                    )}
                     <div>
-                      <p className={styles.resultName}>{r.runner.name}</p>
-                      <p className={styles.resultBio}>{r.runner.bio}</p>
+                      <p className={styles.resultName}>{r.name}</p>
+                      <p className={styles.resultBio}>
+                        {[r.pace, r.preferred_region?.[0]].filter(Boolean).join(' · ') || '러닝 메이트'}
+                      </p>
                       <div className={styles.reasonTags}>
                         {r.reasons.map((reason) => (
                           <span key={reason} className={styles.reasonTag}>{reason}</span>
@@ -438,7 +398,7 @@ export default function AiDemoPage() {
             <div className={styles.modelCard}>
               <div className={styles.modelPhase}>중기</div>
               <p className={styles.modelName}>협업 필터링 (CF)</p>
-              <p className={styles.modelDesc}>같이 달린 이력 · 평점 · 재참가율 기반으로 "이 러너랑 잘 맞는 사람" 패턴 학습. Surprise / LightFM 활용.</p>
+              <p className={styles.modelDesc}>같이 달린 이력 · 평점 · 재참가율 기반으로 &quot;이 러너랑 잘 맞는 사람&quot; 패턴 학습. Surprise / LightFM 활용.</p>
               <div className={styles.modelTags}>
                 <span>협업 필터링</span><span>Matrix Factorization</span>
               </div>

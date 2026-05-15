@@ -40,12 +40,45 @@ export default function RunPage() {
     setShowQuickReport(false);
   };
 
+  // Web Speech API는 HTTPS 또는 localhost 환경에서만 동작
   const handleVoice = () => {
-    setVoiceListening(true);
-    setTimeout(() => {
-      setReports((prev) => [...prev, { tag: '🎙️ "여기 야경 좋다"', time: seconds }]);
-      setVoiceListening(false);
-    }, 2000);
+    const SpeechRecognition =
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      (window as any).SpeechRecognition ||
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      (window as any).webkitSpeechRecognition;
+
+    if (!SpeechRecognition) {
+      alert('이 브라우저는 음성 인식을 지원하지 않아요. Chrome 또는 Safari를 사용해 주세요.');
+      return;
+    }
+
+    const recognition = new SpeechRecognition();
+    recognition.lang = 'ko-KR';
+    recognition.interimResults = false;
+    recognition.maxAlternatives = 1;
+
+    recognition.onstart = () => setVoiceListening(true);
+
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    recognition.onresult = (event: any) => {
+      const transcript = event.results[0][0].transcript.trim();
+      if (!transcript) return;
+      setReports((prev) => [...prev, { tag: `🎙️ "${transcript}"`, time: seconds }]);
+    };
+
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    recognition.onerror = (event: any) => {
+      if (event.error === 'not-allowed') {
+        alert('마이크 권한이 필요해요. 브라우저 설정에서 마이크를 허용해 주세요.');
+      } else if (event.error === 'audio-capture') {
+        alert('마이크 장치를 찾을 수 없어요.');
+      }
+    };
+
+    recognition.onend = () => setVoiceListening(false);
+
+    recognition.start();
   };
 
   // Mock running stats
@@ -113,7 +146,7 @@ export default function RunPage() {
           ) : (
             <>
               {/* Voice Report */}
-              <button className={`${styles.controlBtn} ${voiceListening ? styles.listening : ''}`} onClick={handleVoice}>
+              <button className={`${styles.controlBtn} ${voiceListening ? styles.listening : ''}`} onClick={handleVoice} disabled={voiceListening}>
                 <svg width="20" height="20" viewBox="0 0 24 24" fill="none"><path d="M12 1C10.34 1 9 2.34 9 4V12C9 13.66 10.34 15 12 15C13.66 15 15 13.66 15 12V4C15 2.34 13.66 1 12 1Z" stroke="currentColor" strokeWidth="2"/><path d="M19 10V12C19 15.87 15.87 19 12 19C8.13 19 5 15.87 5 12V10" stroke="currentColor" strokeWidth="2" strokeLinecap="round"/><path d="M12 19V23M8 23H16" stroke="currentColor" strokeWidth="2" strokeLinecap="round"/></svg>
                 <span>음성</span>
               </button>
